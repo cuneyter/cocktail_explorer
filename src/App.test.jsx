@@ -1,48 +1,75 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import App from './App';
+import { act } from 'react-dom/test-utils';
 
-// Mock the robots import
-jest.mock('./robots', () => ({
-  robots: [
-    { id: 1, name: 'Mocked Robot 1', email: 'mock1@test.com' },
-    { id: 2, name: 'Mocked Robot 2', email: 'mock2@test.com' }
-  ]
-}));
+// Mock fetch API
+beforeEach(() => {
+  global.fetch = jest.fn().mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve([
+        { id: 1, name: 'Robot One', email: 'robotone@example.com' },
+        { id: 2, name: 'Robot Two', email: 'robottwo@example.com' }
+      ])
+    })
+  );
+});
+
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
 
 describe('App Component', () => {
-  test('renders App with heading and CardList', () => {
-    render(<App />);
-
-    const headingElement = screen.getByText(/RoboFriends/i);
-    expect(headingElement).toBeInTheDocument();
-
-    // Assuming that the initial robots array is not empty
-    expect(screen.getByText('Mocked Robot 2')).toBeInTheDocument(); // Replace with actual robot names
+  test('renders robots after fetch', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+    const robotOne = screen.getByText('Robot One');
+    expect(robotOne).toBeInTheDocument();
+    expect(screen.getByText('Robot Two')).toBeInTheDocument();
   });
 
   test('filters robots based on search input', async () => {
-    render(<App />);
+    await act(async () => {
+      render(<App />);
+    });
+
+    // Wait for robots to be displayed
+    await screen.findByText('Robot One');
 
     // Simulate typing into the search box
     fireEvent.change(screen.getByPlaceholderText('Search...'), {
-      target: { value: 'Mocked Robot 1' }
+      target: { value: 'Robot One' }
     });
 
     // Assert that only the searched robot is displayed
-    const robotName = await screen.findByText('Mocked Robot 1');
-    expect(robotName).toBeInTheDocument();
+    expect(screen.getByText('Robot One')).toBeInTheDocument();
+    expect(screen.queryByText('Robot Two')).not.toBeInTheDocument();
   });
 
-  test('displays no robots message when search returns no results', () => {
-    render(<App />);
+  test('displays loading message when robots array is empty', async () => {
+    global.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve([])
+      })
+    );
 
-    // Simulate typing into the search box
-    fireEvent.change(screen.getByPlaceholderText('Search...'), {
-      target: { value: 'Non-existing Robot' }
+    await act(async () => {
+      render(<App />);
     });
 
-    // Assert that a message is displayed indicating no robots are available
-    expect(screen.getByText('No robots available')).toBeInTheDocument();
+    const loadingElement = await screen.findByText('Loading...');
+    expect(loadingElement).toBeInTheDocument();
+  });
+
+  test('does not display loading message when robots array is not empty', async () => {
+    await act(async () => {
+      render(<App />);
+    });
+
+    const robotOne = await screen.findByText('Robot One');
+    expect(robotOne).toBeInTheDocument();
+    expect(screen.queryByText('Loading...')).toBeNull();
   });
 });
