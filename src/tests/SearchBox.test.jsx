@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import SearchBox from './SearchBox';
+import SearchBox from '../components/SearchBox';
 
 describe('SearchBox Component', () => {
   test('calls searchChange on input change', () => {

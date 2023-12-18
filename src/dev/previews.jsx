@@ -1,9 +1,9 @@
 import {ComponentPreview, Previews} from '@react-buddy/ide-toolbox'
 import {PaletteTree} from './palette'
-import CardList from "../CardList";
-import Card from "../Card";
-import App from "../App";
-import Scroll from "../Scroll";
+import CardList from "../components/CardList";
+import Card from "../components/Card";
+import App from "../containers/App";
+import Scroll from "../components/Scroll";
 
 const ComponentPreviews = () => {
   return (

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Scroll from './Scroll';
+import Scroll from '../components/Scroll';
 
 describe('Scroll Component', () => {
   test('renders children inside a scrollable div', () => {
