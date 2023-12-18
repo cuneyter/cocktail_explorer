@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import CardList from './CardList';
+import CardList from '../components/CardList';
 
 describe('CardList Component', () => {
   const mockRobots = [

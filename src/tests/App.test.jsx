@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import App from './App';
+import App from '../containers/App';
 import { act } from 'react-dom/test-utils';
 
 // Mock fetch API

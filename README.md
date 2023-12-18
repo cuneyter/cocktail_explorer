@@ -7,11 +7,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### `npm start`
-[App.jsx](src/App.jsx)
+[App.jsx](src/containers/App.jsx)
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when [App.jsx](src/App.jsx) you make changes.\
+The page will reload when [App.jsx](src/containers/App.jsx) you make changes.\
 You may also see any lint errors in the console.
 
 ### `npm test`
