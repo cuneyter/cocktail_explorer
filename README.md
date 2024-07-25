@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# Cocktail Explorer
+
+This is an experimental project to fetch and display cocktails from an [Cocktail API](https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail). The project is built using React and uses the [Cocktail API](https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail) to fetch the data. The project is a single page application that displays a list of cocktails and user can search for a specific cocktail by name.
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -7,6 +11,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 ### `npm start`
+
 [App.jsx](src/containers/App.jsx)
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.

@@ -2,26 +2,28 @@ import React from "react";
 import Card from "./Card";
 import PropTypes from "prop-types";
 
-const CardList = ({ robots }) => {
-  if (!robots || robots.length === 0) {
-    return <p>No robots available</p>;
+const CardList = ({ cocktails }) => {
+  if (!cocktails || cocktails.length === 0) {
+    return <p>No cocktails available</p>;
   }
 
   return (
     <section>
-      {robots.map(({ id, name, email }) => (
-        <Card key={id} id={id} name={name} email={email} />
+      {cocktails.map(({ idDrink, strDrink, strDrinkThumb }) => (
+        <Card key={idDrink} name={strDrink} src={strDrinkThumb} />
       ))}
     </section>
   );
-}
+};
 
 CardList.propTypes = {
-  robots: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired
-  })).isRequired
+  cocktails: PropTypes.arrayOf(
+    PropTypes.shape({
+      idDrink: PropTypes.string.isRequired,
+      strDrink: PropTypes.string.isRequired,
+      strDrinkThumb: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default React.memo(CardList);
